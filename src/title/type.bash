@@ -1,22 +1,39 @@
 #! /bin/bash
 DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-. "$DIRNAME/../utils.sh"
+. "$DIRNAME/../utils.bash"
 
 check_type_empty() {
-    MESSAGE=$1
+    TYPE=$1
 
-    type=`get_type_from_message $MESSAGE`;
-
-    throw_error_message_on_empty_string "Commit type cannot be empty. Received: ${type}" $type;
+    throw_error_message_on_empty_string "Commit type cannot be empty. Received: ${TYPE}" $TYPE;
 }
 
-check_type_by_enum() {
-    MESSAGE=$1
+check_type_enum() {
+    TYPE=$1
     ALLOWED_TYPES=$2
 
-    type=`get_type_from_message $MESSAGE`;
-    error_message="Commit type \"${commit_type}\" is not allowed. Expected one of ${ALLOWED_TYPES}"
+    error_message="Commit type \"${TYPE}\" is not allowed. Expected one of ${ALLOWED_TYPES}"
 
-    throw_error_message_on_element_not_in_list $error_message $type $ALLOWED_TYPES
+    throw_error_message_on_element_not_in_list $error_message $TYPE $ALLOWED_TYPES
+}
+
+check_type_lowercase(){
+    TYPE=$1
+    number_of_uppercase_characters=`echo "$TYPE" | grep -E "[A-Z]+" -c -m1 -`
+
+    if [ $number_of_uppercase_characters -gt 0 ]
+    then
+        throw "Type must be all lowercase. Received ${TYPE}"
+    fi
+}
+
+check_type_uppercase(){
+    TYPE=$1
+    number_of_lowercase_characters=`echo "$TYPE" | grep -E "[a-z]+" -c -m1 -`
+    
+    if [ $number_of_lowercase_characters -gt 0 ]
+    then
+        throw "Type must be all uppercase. Received ${TYPE}"
+    fi
 }
