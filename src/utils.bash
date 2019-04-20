@@ -14,7 +14,7 @@ element_in_list() {
 
     for i in $list_as_list;
     do
-        if [ $i == $ELEMENT ]
+        if [ "$i" == "$ELEMENT" ]
         then
             return 1
         fi

@@ -15,7 +15,7 @@ check_type_enum() {
 
     error_message="Commit type \"${TYPE}\" is not allowed. Expected one of ${ALLOWED_TYPES}"
 
-    throw_error_message_on_element_not_in_list $error_message $TYPE $ALLOWED_TYPES
+    throw_error_message_on_element_not_in_list "$error_message" "$TYPE" "$ALLOWED_TYPES"
 }
 
 check_type_lowercase(){
