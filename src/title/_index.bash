@@ -45,6 +45,10 @@ check_title_type_by_message_and_configuration() {
     for rule in $rules_as_list
     do
         rule_argument=`get_configuration_by_type_and_key_from_file "Title" "$rule" "$CONFIGURATION_FILE"`   
+        if [ $? -eq 1 ]
+        then
+            throw "Unable to parse config. Received error: \"$rule_argument\""
+        fi
 
         if [ ! -z $rule_argument ] && [ $rule_argument != "0" ]
         then
