@@ -1,10 +1,16 @@
 #! /bin/bash -x
 
+get_list_from_comma_separated_string () {
+    INPUT_STRING=$1
+
+    echo $(echo $INPUT_STRING | sed -e 's/,/ /g' -);
+}
+
 element_in_list() {
     ELEMENT=$1
     LIST_AS_STRING=$2
 
-    list_as_list=`echo $LIST_AS_STRING | grep -e '\w*' -o -`;
+    list_as_list=$(get_list_from_comma_separated_string $LIST_AS_STRING);
 
     for i in $list_as_list;
     do
@@ -43,7 +49,7 @@ throw() {
         actual_code="$CODE"
     fi
 
-    echo $MESSAGE
+    echo "$MESSAGE"
     exit $actual_code
 }
 
