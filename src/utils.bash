@@ -10,7 +10,7 @@ element_in_list() {
     ELEMENT=$1
     LIST_AS_STRING=$2
 
-    list_as_list=$(get_list_from_comma_separated_string $LIST_AS_STRING);
+    list_as_list=`get_list_from_comma_separated_string "$LIST_AS_STRING"`;
 
     for i in $list_as_list;
     do
