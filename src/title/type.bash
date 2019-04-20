@@ -1,21 +1,37 @@
 #! /bin/bash
-DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+import_by_relative_path() {
+    RELATIVE_PATH="$1"
 
-. "$DIRNAME/../utils.bash"
+    DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+    . "$DIRNAME/$RELATIVE_PATH"
+}
+
+import_by_relative_path "../utils.bash"
 
 check_type_empty() {
     TYPE=$1
 
-    throw_error_message_on_empty_string "Commit type cannot be empty. Received: ${TYPE}" $TYPE;
+    is_empty_string $TYPE
+    is_empty_string_result=$?
+
+    if [ $is_empty_string_result -eq 1 ]
+    then
+        throw "Commit type cannot be empty. Received: ${TYPE}"
+    fi
 }
 
 check_type_enum() {
     TYPE=$1
     ALLOWED_TYPES=$2
 
-    error_message="Commit type \"${TYPE}\" is not allowed. Expected one of ${ALLOWED_TYPES}"
+    is_element_in_list "$TYPE" "$ALLOWED_TYPES"
+    is_element_in_list_result=$?
 
-    throw_error_message_on_element_not_in_list "$error_message" "$TYPE" "$ALLOWED_TYPES"
+    if [ $is_element_in_list_result -eq 1 ]
+    then
+        throw "Commit type \"${TYPE}\" is not allowed. Expected one of \"${ALLOWED_TYPES}\""
+    fi
 }
 
 check_type_lowercase(){
@@ -24,7 +40,7 @@ check_type_lowercase(){
 
     if [ $number_of_uppercase_characters -gt 0 ]
     then
-        throw "Type must be all lowercase. Received ${TYPE}"
+        throw "Commit type must be all lowercase. Received ${TYPE}"
     fi
 }
 
@@ -34,6 +50,6 @@ check_type_uppercase(){
     
     if [ $number_of_lowercase_characters -gt 0 ]
     then
-        throw "Type must be all uppercase. Received ${TYPE}"
+        throw "Commit type must be all uppercase. Received ${TYPE}"
     fi
 }

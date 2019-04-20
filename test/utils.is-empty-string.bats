@@ -8,15 +8,12 @@ load libs/bats-support/src/output
 
 @test "throws error if string is empty" {
     INPUT=''
-    ERROR='error'
-    run throw_error_message_on_empty_string "$ERROR" "$INPUT";
+    run is_empty_string "$INPUT";
     assert_failure
-    assert_output "$ERROR"
 }
 
 @test "succeeds if string is not empty" {
     INPUT='not empty'
-    ERROR='error'
-    run throw_error_message_on_empty_string "$ERROR" "$INPUT";
+    run is_empty_string "$INPUT";
     assert_success
 }
