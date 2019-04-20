@@ -9,16 +9,16 @@ load libs/bats-support/src/output
 @test "throws error if element is not in list" {
     ELEMENT='element'
     LIST='things which are not elements'
-    ERROR='error'
+    ERROR='error message'
     run throw_error_message_on_element_not_in_list "$ERROR" "$ELEMENT" "$LIST";
     assert_failure
-    assert_output $ERROR
+    assert_output "$ERROR"
 }
 
 @test "succeeds if element is in list" {
     ELEMENT='element'
     LIST='this include the element'
-    ERROR='error'
+    ERROR='error message'
     run throw_error_message_on_element_not_in_list "$ERROR" "$ELEMENT" "$LIST"
     assert_success
 }
@@ -26,7 +26,7 @@ load libs/bats-support/src/output
 @test "throws error if list is empty" {
     ELEMENT='element'
     LIST=''
-    ERROR='error'
+    ERROR='error message'
     run throw_error_message_on_element_not_in_list "$ERROR" "$ELEMENT" "$LIST"
     assert_failure
     assert_output "List cannot be empty"
@@ -35,7 +35,7 @@ load libs/bats-support/src/output
 @test "throws error if element is empty" {
     ELEMENT=''
     LIST='not empty'
-    ERROR='error'
+    ERROR='error message'
     run throw_error_message_on_element_not_in_list "$ERROR" "$ELEMENT" "$LIST"
     assert_failure
     assert_output "Element cannot be empty"
