@@ -15,8 +15,8 @@ import_by_relative_path "scope.bash"
 
 import_by_relative_path "../logger.bash"
 
-ALLOWED_TYPE_RULES="type_empty type_lowercase type_uppercase type_enum"
-ALLOWED_SCOPE_RULES="scope_empty scope_lowercase scope_uppercase scope_enum"
+ALLOWED_TYPE_RULES="type_empty type_lowercase type_uppercase type_enum type_regexp"
+ALLOWED_SCOPE_RULES="scope_empty scope_lowercase scope_uppercase scope_enum scope_regexp"
 
 check_title_type_by_message_and_configuration() {
     MESSAGE=$1
