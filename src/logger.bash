@@ -14,7 +14,7 @@
 ##
 
 exec 3>&2 # logging stream (file descriptor 3) defaults to STDERR
-verbosity=3 # default to show warnings
+verbosity=1 # default to show warnings
 silent_lvl=0
 crt_lvl=1
 err_lvl=2
