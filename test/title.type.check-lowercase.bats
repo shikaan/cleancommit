@@ -11,7 +11,7 @@ load libs/bats-support/src/output
     run check_type_lowercase "$TYPE"
 
     assert_failure
-    assert_output "Commit type must be all lowercase. Received ${TYPE}"
+    assert_output "Commit TYPE must be all lowercase. Received ${TYPE}"
 }
 
 @test "succeeds if all characters are lowercase" {

@@ -29,5 +29,5 @@ load libs/bats-support/src/output
     run get_type_from_message "$INPUT"
 
     assert_failure
-    assert_output "Commit type must be provided. Example: \"feat: commit message\""
+    assert_output "Commit TYPE must be provided. Example: \"feat: commit message\""
 }
