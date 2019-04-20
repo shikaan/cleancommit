@@ -17,7 +17,7 @@ check_type_empty() {
 
     if [ $is_empty_string_result -eq 1 ]
     then
-        throw "Commit type cannot be empty. Received: ${TYPE}"
+        throw "Commit TYPE cannot be empty. Received: ${TYPE}"
     fi
 }
 
@@ -30,7 +30,7 @@ check_type_enum() {
 
     if [ $is_element_in_list_result -eq 1 ]
     then
-        throw "Commit type \"${TYPE}\" is not allowed. Expected one of \"${ALLOWED_TYPES}\""
+        throw "Commit TYPE \"${TYPE}\" is not allowed. Expected one of \"${ALLOWED_TYPES}\""
     fi
 }
 
@@ -40,7 +40,7 @@ check_type_lowercase(){
 
     if [ $number_of_uppercase_characters -gt 0 ]
     then
-        throw "Commit type must be all lowercase. Received ${TYPE}"
+        throw "Commit TYPE must be all lowercase. Received ${TYPE}"
     fi
 }
 
@@ -50,6 +50,6 @@ check_type_uppercase(){
     
     if [ $number_of_lowercase_characters -gt 0 ]
     then
-        throw "Commit type must be all uppercase. Received ${TYPE}"
+        throw "Commit TYPE must be all uppercase. Received ${TYPE}"
     fi
 }
