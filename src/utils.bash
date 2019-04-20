@@ -3,7 +3,7 @@
 get_list_from_comma_separated_string () {
     INPUT_STRING=$1
 
-    echo $(echo $INPUT_STRING | sed -e 's/,/ /g' -);
+    echo $(echo ${INPUT_STRING} | sed -e 's/,/ /g' -);
 }
 
 is_element_in_list() {
@@ -12,19 +12,19 @@ is_element_in_list() {
 
     if [[ -z ${LIST_AS_STRING} ]]
     then
-        throw "List cannot be empty" 
+        throw "List cannot be empty"
     fi
 
-    if [ -z "$ELEMENT" ]
+    if [[ -z "$ELEMENT" ]]
     then
-        throw "Element cannot be empty" 
+        throw "Element cannot be empty"
     fi
 
     list_as_list=`get_list_from_comma_separated_string "$LIST_AS_STRING"`;
 
-    for i in $list_as_list;
+    for i in ${list_as_list};
     do
-        if [ "$i" == "$ELEMENT" ]
+        if [[ "$i" == "$ELEMENT" ]]
         then
             return 0
         fi
@@ -36,35 +36,35 @@ is_element_in_list() {
 get_type_from_message() {
     MESSAGE=$1
 
-    has_column=`echo $MESSAGE | grep -E "\:" -o -m1 - | head -1`
+    has_column=`echo ${MESSAGE} | grep -E "\:" -o -m1 - | head -1`
 
-    if [ -z $has_column ]
+    if [[ -z ${has_column} ]]
     then
         throw "Commit TYPE must be provided. Example: \"feat: commit message\""
     fi
 
-    echo `echo $MESSAGE | grep -E "^[a-zA-Z]+" -o -m1 - | head -1`
+    echo `echo ${MESSAGE} | grep -E "^[a-zA-Z]+" -o -m1 - | head -1`
 }
 
 get_scope_from_message() {
     MESSAGE=$1
 
-    has_column=`echo $MESSAGE | grep -E "\:" -o -m1 - | head -1`
+    has_column=`echo ${MESSAGE} | grep -E "\:" -o -m1 - | head -1`
 
-    if [ -z $has_column ]
+    if [[ -z ${has_column} ]]
     then
         throw "Commit TYPE must be provided. Example: \"feat: commit message\""
     fi
 
-    number_of_parentesis=`echo $MESSAGE | grep -E "\(|\)" -o -m1 -c - | head -1`
+    number_of_parenthesis=`echo ${MESSAGE} | grep -E "\(|\)" -o -m1 -c - | head -1`
 
-    if [ $number_of_parentesis -lt 1 ]
+    if [[ ${number_of_parenthesis} -lt 1 ]]
     then
         echo ""
         return
     fi
 
-    echo `echo $MESSAGE | sed -E "s/.*\((.*)\).*/\1/g" -`
+    echo `echo ${MESSAGE} | sed -E "s/.*\((.*)\).*/\1/g" -`
 }
 
 throw() {
@@ -77,7 +77,7 @@ throw() {
 is_empty_string() {
     INPUT_STRING=$1
 
-    if [ -z $INPUT_STRING ]
+    if [[ -z ${INPUT_STRING} ]]
     then
         return 1
     fi
