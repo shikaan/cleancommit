@@ -14,3 +14,4 @@ CONFIG_FILE=$1
 MESSAGE=$2
 
 check_title_type_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
+check_title_scope_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
