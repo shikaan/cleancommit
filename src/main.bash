@@ -8,10 +8,11 @@ import_by_relative_path() {
     . "$DIRNAME/$RELATIVE_PATH"
 }
 
-import_by_relative_path "title/_index.bash"
+import_by_relative_path "header/_index.bash"
 
 CONFIG_FILE=$1
 MESSAGE=$2
 
-check_title_type_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
-check_title_scope_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
+check_type_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
+check_scope_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
+check_title_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"

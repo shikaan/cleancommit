@@ -67,6 +67,20 @@ get_scope_from_message() {
     echo `echo ${MESSAGE} | sed -E "s/.*\((.*)\).*/\1/g" -`
 }
 
+get_title_from_message() {
+    MESSAGE=$1
+
+    has_column=`echo ${MESSAGE} | grep -E "\:" -o -m1 - | head -1`
+
+    if [[ -z ${has_column} ]]
+    then
+        throw "Commit TYPE must be provided. Example: \"feat: commit message\""
+    fi
+
+    echo `echo ${MESSAGE} | sed -E "1 s/.*:\s*(.+).*/\1/" - | head -n1 -`
+
+}
+
 throw() {
     MESSAGE=$1
 
