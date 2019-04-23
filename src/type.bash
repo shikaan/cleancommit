@@ -78,7 +78,7 @@ __check_type_regexp(){
 __get_type_from_message() {
     local -r message=$1
 
-    echo "$message" | grep -E "^[a-zA-Z]+" -o -m1 - | head -1
+    printf "$message" | sed -E "1s/(^[a-zA-Z]*)(:|\()(.*)/\1/g" - | head -1
 }
 
 check_commit_type_by_message_and_config_file() {

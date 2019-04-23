@@ -86,7 +86,7 @@ __get_scope_from_message() {
         return
     fi
 
-    echo `echo ${message} | sed -E "s/.*\((.*)\).*/\1/g" -`
+    printf "$message" | sed -E "1s/.*\((.*)\).*/\1/g" - | head -1
 }
 
 check_commit_scope_by_message_and_config_file() {

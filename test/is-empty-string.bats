@@ -7,13 +7,13 @@ load libs/bats-support/src/lang
 load libs/bats-support/src/output
 
 @test "throws error if string is empty" {
-    INPUT=''
-    run is_empty_string "$INPUT";
+    local -r input=''
+    run is_empty_string "$input";
     assert_failure
 }
 
 @test "succeeds if string is not empty" {
-    INPUT='not empty'
-    run is_empty_string "$INPUT";
+    local -r input='not empty'
+    run is_empty_string "$input";
     assert_success
 }

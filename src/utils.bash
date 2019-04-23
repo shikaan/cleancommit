@@ -1,5 +1,15 @@
 #! /bin/bash
 
+import_by_relative_path() {
+    RELATIVE_PATH="$1"
+
+    DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+    . "$DIRNAME/$RELATIVE_PATH"
+}
+
+import_by_relative_path "logger.bash"
+
 __get_list_from_comma_separated_string () {
     local -r INPUT_STRING=$1
 

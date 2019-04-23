@@ -66,7 +66,7 @@ __check_subject_regexp(){
 __get_subject_from_message() {
     local -r message=$1
 
-    echo "$message" | sed -E "1 s/.*:\s*(.+).*/\1/" - | head -n1 -
+    printf "$message" | sed -E "1 s/.*:\s*(.*)\s*.*/\1/" - | head -1
 }
 
 check_commit_subject_by_message_and_config_file() {
