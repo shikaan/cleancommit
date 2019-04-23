@@ -25,18 +25,18 @@ __check_subject_empty() {
 
     if [[ ${is_empty_string_result} -eq 1 ]]
     then
-        throw "Commit subject cannot be empty. Received: ${subject}"
+        throw "Commit SUBJECT cannot be empty. Received: ${subject}"
     fi
 }
 
 __check_subject_lowercase(){
     local -r subject=$1
 
-    local -r number_of_uppercase_characters=`echo "$subject" | grep -E "[A-Z]+" -c -m1 -`
+    has_uppercase_characters "$subject";
 
-    if [[ ${number_of_uppercase_characters} -gt 0 ]]
+    if [[ $? -eq 1 ]]
     then
-        throw "Commit subject must be all lowercase. Received ${subject}"
+        throw "Commit SUBJECT must be all lowercase. Received \"${subject}\""
     fi
 }
 
@@ -47,7 +47,7 @@ __check_subject_titlecase(){
 
     if [[ ${is_titlecase} -eq 0 ]]
     then
-        throw "Commit subject must be title case. Received ${subject}"
+        throw "Commit SUBJECT must be title case. Received ${subject}"
     fi
 }
 
@@ -59,7 +59,7 @@ __check_subject_regexp(){
 
     if [[ ${number_of_matches} -eq 0 ]]
     then
-        throw "Commit subject must match \"$regexp\". Received ${subject}"
+        throw "Commit SUBJECT must match \"$regexp\". Received ${subject}"
     fi
 }
 

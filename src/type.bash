@@ -44,11 +44,11 @@ __check_type_enum() {
 __check_type_lowercase(){
     local -r type=$1
 
-    local -r number_of_uppercase_characters=`echo "$type" | grep -E "[A-Z]+" -c -m1 -` #TODO: move me to a util to optimize test
+    has_uppercase_characters "$type";
 
-    if [[ ${number_of_uppercase_characters} -gt 0 ]]
+    if [[ $? -eq 1 ]]
     then
-        throw "Commit TYPE must be all lowercase. Received ${type}"
+        throw "Commit TYPE must be all lowercase. Received \"${type}\""
     fi
 }
 

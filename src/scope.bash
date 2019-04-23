@@ -42,12 +42,13 @@ __check_scope_enum() {
 }
 
 __check_scope_lowercase(){
-    SCOPE=$1
-    number_of_uppercase_characters=`echo "$SCOPE" | grep -E "[A-Z]+" -c -m1 -`
+    local -r scope=$1
 
-    if [[ ${number_of_uppercase_characters} -gt 0 ]]
+    has_uppercase_characters "$scope";
+
+    if [[ $? -eq 1 ]]
     then
-        throw "Commit SCOPE must be all lowercase. Received ${SCOPE}"
+        throw "Commit SCOPE must be all lowercase. Received \"${scope}\""
     fi
 }
 

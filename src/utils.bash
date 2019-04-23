@@ -91,3 +91,29 @@ check_message_chunk_by_message_chunk_and_chunk_name_and_allowed_rules_and_config
         fi
     done
 }
+
+has_uppercase_characters() {
+    local -r input=$1
+
+    local -r number_of_uppercase_characters=`echo "$input" | grep -E "[A-Z]+" -c -m1 -`
+
+    if [[ ${number_of_uppercase_characters} -gt 0 ]]
+    then
+        return 1
+    fi
+
+    return 0
+}
+
+has_lowercase_characters() {
+    local -r input=$1
+
+    local -r number_of_lowercase_characters=`echo "$input" | grep -E "[a-z]+" -c -m1 -`
+
+    if [[ ${number_of_lowercase_characters} -gt 0 ]]
+    then
+        return 1
+    fi
+
+    return 0
+}
