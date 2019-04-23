@@ -15,4 +15,4 @@ MESSAGE=$2
 
 check_type_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
 check_scope_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
-check_title_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
+check_subject_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"

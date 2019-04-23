@@ -67,7 +67,7 @@ get_scope_from_message() {
     echo `echo ${MESSAGE} | sed -E "s/.*\((.*)\).*/\1/g" -`
 }
 
-get_title_from_message() {
+get_subject_from_message() {
     MESSAGE=$1
 
     has_column=`echo ${MESSAGE} | grep -E "\:" -o -m1 - | head -1`

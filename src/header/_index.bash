@@ -12,13 +12,13 @@ import_by_relative_path "../utils.bash"
 import_by_relative_path "../config.bash"
 import_by_relative_path "type.bash"
 import_by_relative_path "scope.bash"
-import_by_relative_path "title.bash"
+import_by_relative_path "subject.bash"
 
 import_by_relative_path "../logger.bash"
 
 ALLOWED_TYPE_RULES="type_empty type_lowercase type_uppercase type_enum type_regexp"
 ALLOWED_SCOPE_RULES="scope_empty scope_lowercase scope_uppercase scope_enum scope_regexp"
-ALLOWED_TITLE_RULES="title_empty title_lowercase title_titlecase title_regexp"
+ALLOWED_SUBJECT_RULES="subject_empty subject_lowercase subject_titlecase subject_regexp"
 
 check_type_by_message_and_configuration() {
     MESSAGE=$1
@@ -84,23 +84,23 @@ check_scope_by_message_and_configuration() {
     done
 }
 
-check_title_by_message_and_configuration() {
+check_subject_by_message_and_configuration() {
     MESSAGE=$1
     CONFIGURATION_FILE=$2
 
-    debug "check_title_by_message_and_configuration (MESSAGE=\"$MESSAGE\" CONFIGURATION_FILE=\"$CONFIGURATION_FILE\")"
+    debug "check_subject_by_message_and_configuration (MESSAGE=\"$MESSAGE\" CONFIGURATION_FILE=\"$CONFIGURATION_FILE\")"
 
-    scope=`get_title_from_message "$MESSAGE"`
-    get_title_from_message_exit_code=$?
+    scope=`get_subject_from_message "$MESSAGE"`
+    get_subject_from_message_exit_code=$?
 
-    debug "get_title_from_message $get_title_from_message_exit_code"
+    debug "get_subject_from_message $get_subject_from_message_exit_code"
 
-    if [[ ${get_title_from_message_exit_code} -eq 1 ]]
+    if [[ ${get_subject_from_message_exit_code} -eq 1 ]]
     then
         throw "Unable to parse commit message. Received error: \"$scope\""
     fi
 
-    for rule in ${ALLOWED_TITLE_RULES}
+    for rule in ${ALLOWED_SUBJECT_RULES}
     do
         rule_argument=`get_configuration_by_type_and_key_from_file "Header" "$rule" "$CONFIGURATION_FILE"`
         if [[ $? -eq 1 ]]
