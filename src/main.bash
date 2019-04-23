@@ -8,11 +8,17 @@ import_by_relative_path() {
     . "$DIRNAME/$RELATIVE_PATH"
 }
 
-import_by_relative_path "header/_index.bash"
+import_by_relative_path "logger.bash"
+import_by_relative_path "utils.bash"
 
-CONFIG_FILE=$1
-MESSAGE=$2
+import_by_relative_path "type.bash"
+import_by_relative_path "scope.bash"
+import_by_relative_path "subject.bash"
 
-check_type_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
-check_scope_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
-check_subject_by_message_and_configuration "$MESSAGE" "$CONFIG_FILE"
+readonly CONFIG_FILE=$1
+readonly MESSAGE=$2
+
+check_commit_type_by_message_and_config_file "$MESSAGE" "$CONFIG_FILE"
+check_commit_scope_by_message_and_config_file "$MESSAGE" "$CONFIG_FILE"
+check_commit_subject_by_message_and_config_file "$MESSAGE" "$CONFIG_FILE"
+
