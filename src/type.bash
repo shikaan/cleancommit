@@ -17,59 +17,61 @@ readonly ALLOWED_TYPE_RULES=("empty" "lowercase" "uppercase" "enum" "regexp")
 #################
 
 __check_type_empty() {
-    local -r TYPE=$1
+    local -r type=$1
 
-    is_empty_string "$TYPE"
+    is_empty_string "$type"
     is_empty_string_result=$?
 
     if [[ ${is_empty_string_result} -eq 1 ]]
     then
-        throw "Commit TYPE cannot be empty. Received: ${TYPE}"
+        throw "Commit TYPE cannot be empty. Received: ${type}"
     fi
 }
 
 __check_type_enum() {
-    TYPE=$1
-    ALLOWED_TYPES=$2
+    local -r type=$1
+    local -r allowed_types=$2
 
-    is_element_in_list "$TYPE" "$ALLOWED_TYPES"
+    is_element_in_list "$type" "$allowed_types"
     is_element_in_list_result=$?
 
     if [[ ${is_element_in_list_result} -eq 1 ]]
     then
-        throw "Commit TYPE \"${TYPE}\" is not allowed. Expected one of \"${ALLOWED_TYPES}\""
+        throw "Commit TYPE \"${type}\" is not allowed. Expected one of \"${allowed_types}\""
     fi
 }
 
 __check_type_lowercase(){
-    TYPE=$1
-    number_of_uppercase_characters=`echo "$TYPE" | grep -E "[A-Z]+" -c -m1 -` #TODO: move me to a util to optimize test
+    local -r type=$1
+
+    local -r number_of_uppercase_characters=`echo "$type" | grep -E "[A-Z]+" -c -m1 -` #TODO: move me to a util to optimize test
 
     if [[ ${number_of_uppercase_characters} -gt 0 ]]
     then
-        throw "Commit TYPE must be all lowercase. Received ${TYPE}"
+        throw "Commit TYPE must be all lowercase. Received ${type}"
     fi
 }
 
 __check_type_uppercase(){
-    TYPE=$1
-    number_of_lowercase_characters=`echo "$TYPE" | grep -E "[a-z]+" -c -m1 -` #TODO: move me to a util to optimize test
+    local -r type=$1
+
+    local -r number_of_lowercase_characters=`echo "$type" | grep -E "[a-z]+" -c -m1 -` #TODO: move me to a util to optimize test
 
     if [[ ${number_of_lowercase_characters} -gt 0 ]]
     then
-        throw "Commit TYPE must be all uppercase. Received ${TYPE}"
+        throw "Commit TYPE must be all uppercase. Received ${type}"
     fi
 }
 
 __check_type_regexp(){
-    SCOPE=$1
-    REGEXP=$2
+    local -r scope=$1
+    local -r regexp=$2
 
-    number_of_matches=`echo "$SCOPE" | grep -E "$REGEXP" -c -m1 -` #TODO: move me to a util to optimize test
+    number_of_matches=`echo "$scope" | grep -E "$regexp" -c -m1 -` #TODO: move me to a util to optimize test
 
     if [[ $number_of_matches -eq 0 ]]
     then
-        throw "Commit TYPE must match \"$REGEXP\". Received ${SCOPE}"
+        throw "Commit TYPE must match \"$regexp\". Received ${scope}"
     fi
 }
 
