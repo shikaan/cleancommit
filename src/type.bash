@@ -55,11 +55,11 @@ __check_type_lowercase(){
 __check_type_uppercase(){
     local -r type=$1
 
-    local -r number_of_lowercase_characters=`echo "$type" | grep -E "[a-z]+" -c -m1 -` #TODO: move me to a util to optimize test
+    has_lowercase_characters "$type";
 
-    if [[ ${number_of_lowercase_characters} -gt 0 ]]
+    if [[ $? -eq 1 ]]
     then
-        throw "Commit TYPE must be all uppercase. Received ${type}"
+        throw "Commit TYPE must be all uppercase. Received \"${type}\""
     fi
 }
 

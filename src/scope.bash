@@ -53,24 +53,25 @@ __check_scope_lowercase(){
 }
 
 __check_scope_uppercase(){
-    SCOPE=$1
-    number_of_lowercase_characters=`echo "$SCOPE" | grep -E "[a-z]+" -c -m1 -`
+    local -r scope=$1
 
-    if [[ ${number_of_lowercase_characters} -gt 0 ]]
+    has_lowercase_characters "$scope";
+
+    if [[ $? -eq 1 ]]
     then
-        throw "Commit SCOPE must be all uppercase. Received ${SCOPE}"
+        throw "Commit SCOPE must be all uppercase. Received \"${scope}\""
     fi
 }
 
 __check_scope_regexp(){
-    SCOPE=$1
-    REGEXP=$2
+    local -r scope=$1
+    local -r regexp=$2
 
-    number_of_matches=`echo "$SCOPE" | grep -E "$REGEXP" -c -m1 -`
+    number_of_matches=`echo "$scope" | grep -E "$regexp" -c -m1 -`
 
     if [[ ${number_of_matches} -eq 0 ]]
     then
-        throw "Commit SCOPE must match \"$REGEXP\". Received ${SCOPE}"
+        throw "Commit SCOPE must match \"$regexp\". Received ${scope}"
     fi
 }
 
