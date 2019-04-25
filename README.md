@@ -4,7 +4,7 @@ cleancommit
 ## Run tests
 
 ```
-watch ./test.sh
+watch ./test.bash
 ```
 
 ## Conventions
